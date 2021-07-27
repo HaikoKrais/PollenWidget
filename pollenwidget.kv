@@ -1,0 +1,44 @@
+<PollenTestLayout>:
+    orientation: 'vertical'
+    PollenWidget:
+        id: wdgt1
+        
+<PollenWidget>:
+    Spinner:
+        id: spn1
+        values: root.states
+        size_hint: .30, .15
+        pos_hint: {'top':1, 'left':1}
+        on_text:
+            root.activeState = self.text
+            root.regions = root.statesAndRegions[self.text]
+    Spinner:
+        id: spn2
+        values: root.regions
+        size_hint: .30, .15
+        pos_hint: {'top':1, 'x':.30}
+        on_text:
+            root.update_active_region(self.text)
+    GridLayout:
+        size_hint: 1, .15
+        pos_hint: {'top': .85, 'left': 1}
+        cols: 4
+        Label:
+            text: 'Allergen'
+        Label:
+            text: 'Heute'
+        Label:
+            text: 'Morgen'
+        Label:
+            text: 'Übermorgen'
+    ScrollView:
+        size_hint: 1, .7
+        pos_hint: {'top': .7, 'left': 1}
+        id: scroll
+        GridLayout:
+            id: grid
+            size_hint: 1, None
+            height: self.minimum_height
+            cols: 4
+            row_force_default: True
+            row_default_height: 40
